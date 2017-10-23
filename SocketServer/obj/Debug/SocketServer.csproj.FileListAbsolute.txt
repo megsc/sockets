@@ -1,0 +1,6 @@
+E:\Dynamic Data Structures\Assessment 3\SocketServer\SocketServer\bin\Debug\SocketServer.exe.config
+E:\Dynamic Data Structures\Assessment 3\SocketServer\SocketServer\bin\Debug\SocketServer.exe
+E:\Dynamic Data Structures\Assessment 3\SocketServer\SocketServer\bin\Debug\SocketServer.pdb
+E:\Dynamic Data Structures\Assessment 3\SocketServer\SocketServer\obj\Debug\SocketServer.exe
+E:\Dynamic Data Structures\Assessment 3\SocketServer\SocketServer\obj\Debug\SocketServer.pdb
+E:\Dynamic Data Structures\Assessment 3\SocketServer\SocketServer\obj\Debug\SocketServer.csprojResolveAssemblyReference.cache
