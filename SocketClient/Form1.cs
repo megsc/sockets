@@ -21,25 +21,27 @@ namespace SocketClient
 
         byte[] bytes = new byte[1024];
 
+        // Connection details.
         IPHostEntry ipHostInfo = Dns.Resolve(Dns.GetHostName());
         IPAddress ipAddress;
         IPEndPoint remoteEP;
 
+        KeyEventHandler showKeyUp;
 
         public Form1()
         {
             InitializeComponent();
         
-            // Connecting to server socket.
+            // Connection details. 
             ipAddress = ipHostInfo.AddressList[0];
             remoteEP = new IPEndPoint(ipAddress, 11000);
 
+            // Connect to server socket. 
             clientSock.Connect(remoteEP);
 
             // Updating form once connected to server and adding messages to textbox1.
-            label1.Text = "Client is connected to server";
-            textBox1.Text = " >>> Socket connected to " + clientSock.RemoteEndPoint.ToString() + Environment.NewLine + " >>> Enter message to Server ";
-
+            label1_connection.Text = "Client is connected to server";
+            textBox1_server.Text = " >>> Socket connected to " + clientSock.RemoteEndPoint.ToString() + Environment.NewLine + " >>> Enter message to Server ";
 
 
         }
@@ -47,10 +49,10 @@ namespace SocketClient
         private void button1_Click(object sender, EventArgs e)
         {
             // Input from Textbox2 to string. 
-            string input = textBox2.Text;
+            string input = textBox2_client.Text;
 
             // Adding message from client to server into textbox1 to display to the user.
-            textBox1.Text = textBox1.Text + Environment.NewLine + " >>> Client sent: " + input;
+            textBox1_server.Text = textBox1_server.Text + Environment.NewLine + " >>> Client sent: " + input;
 
             // Encoding the user input string to a byte array to send to the server. 
             byte[] msg = Encoding.ASCII.GetBytes(input);
@@ -60,7 +62,7 @@ namespace SocketClient
             int bytesRec = clientSock.Receive(bytes);
 
             // Adding the return message from the server to textbox1.
-            textBox1.Text = textBox1.Text + Environment.NewLine + " >>> Server sent: " + Encoding.ASCII.GetString(bytes, 0, bytesRec);
+            textBox1_server.Text = textBox1_server.Text + Environment.NewLine + " >>> Server sent: " + Encoding.ASCII.GetString(bytes, 0, bytesRec);
 
             // Closing sockets.
             clientSock.Shutdown(SocketShutdown.Both);
@@ -69,14 +71,33 @@ namespace SocketClient
         }
 
 
+
+        /// <summary>
+        /// Showing key entered into Textbox2 to user on Label5.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ShowKeyUp(object sender, KeyEventArgs e)
+         {
+
+           label5_showText.Text = e.KeyCode.ToString();
+
+         }
+
+
+
         /// <summary>
         /// Making Label4 visible when Textbox2 is in focus. 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void textBox2_Enter(object sender, EventArgs e)
-        {
-            label4.Visible = true;
-        }
+        //private void textBox2_Enter(object sender, EventArgs e)
+        //{
+        //    label4_EOF.Visible = true;
+        //}
+
+
+        
+        
     }
 }

@@ -13,15 +13,17 @@ namespace SocketServer
     {
         public static string data = null;
 
+        // Listen for a client connection.
         public static void StartListening()
         {
             byte[] bytes = new Byte[1024];
 
+            // Connection details.
             IPHostEntry ipHostInfo = Dns.Resolve(Dns.GetHostName());
             IPAddress ipAddress = ipHostInfo.AddressList[0];
             IPEndPoint localEndPoint = new IPEndPoint(ipAddress, 11000);
 
-            //create a socket
+            // Create a server socket.
             Socket listener = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
             try
@@ -33,10 +35,13 @@ namespace SocketServer
                 while (true)
                 {
                     Console.WriteLine("Waiting for connection....");
+
+                    // Accept client connection.
                     Socket handler = listener.Accept();
                     Console.WriteLine("Connected to client. Awaiting message");
                     data = null;
 
+                    // Receive message from client ensuring message ends with <EOF>.
                     while (true)
                     {
                         bytes = new byte[1024];
@@ -53,11 +58,13 @@ namespace SocketServer
 
                     //byte[] msg = Encoding.ASCII.GetBytes(data);
 
+                    // Write message back to Client.
                     Console.WriteLine("\nEnter text to client:");
                     string input = Console.ReadLine();
 
                     byte[] msg = Encoding.ASCII.GetBytes(input);
 
+                    // Send message back to client and shutdown server socket.
                     handler.Send(msg);
                     handler.Shutdown(SocketShutdown.Both);
                     handler.Close();
@@ -65,6 +72,7 @@ namespace SocketServer
                 }
             }
 
+            // Exception handler for no client connection. 
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());

@@ -10,7 +10,7 @@ using System.Threading;
 
 namespace SocketClient
 {
-    // code for console based client
+    // Code for console based client.
     
 
     //public class SynchronousSocketClient
